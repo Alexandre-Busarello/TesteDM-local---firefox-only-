@@ -37,24 +37,6 @@ angular.module('sampleApp').service("apiService", ['$http', '$q', function(http,
         deferred.reject(err);
       });
       return deferred.promise;
-    },
-    getCustomerBenefits: function(customerId) {
-      var deferred = q.defer();
-      http.get("/user/address").then(function(data) {
-        deferred.resolve(data);
-      }, function(err) {
-        deferred.reject(err);
-      });
-      return deferred.promise;
-    },
-    getCustomerHistorical: function(customerId) {
-      var deferred = q.defer();
-      http.get("/user/address").then(function(data) {
-        defer.resolve(data);
-      }, function(err) {
-        defer.reject(err);
-      });
-      return deferred.promise;
     }
   }
 }]);
