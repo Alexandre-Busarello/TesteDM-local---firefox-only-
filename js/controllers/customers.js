@@ -5,19 +5,23 @@ angular.module('sampleApp').controller('customerCtrl', ['$scope', '$location', '
 	};
 
 	$scope.selectCustomer = function(id) {
-		$scope.getTransactions(id);		
+		if (id)
+			$scope.getTransactions(id);		
 	};
 	
 	$scope.getTransactions = function(id) {
-		$location.path('/customers/' + id + '/transactions');			
+		if (id)
+			$location.path('/customers/' + id + '/transactions');			
 	};			
 	
 	$scope.getBenefits = function(id) {
-		$location.path('/customers/' + id + '/benefits');	
+		if (id)
+			$location.path('/customers/' + id + '/benefits');	
 	};		
 
 	$scope.getHistorical = function(id) {
-		$location.path('/customers/' + id + '/historical');	
+		if (id)
+			$location.path('/customers/' + id + '/historical');	
 	};		
 
 	$scope.getCustomers = function() {
