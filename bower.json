@@ -1,0 +1,28 @@
+{
+  "name": "TesteDM",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Alexandre"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.6.5",
+    "bootstrap": "^3.3.7",
+    "angular-bootstrap": "^2.5.0",
+    "angular-animate": "^1.6.5",
+    "angular-route": "^1.6.5",
+    "angular-i18n": "^1.6.5",
+    "ng-input-currency": "^0.9.7",
+    "ng-currency": "^1.2.2"
+  }
+}

@@ -1,0 +1,97 @@
+﻿<html ng-app="sampleApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+
+    <title>DMConsultoriaTeste</title>
+	
+	<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/main.min.css">
+
+</head>
+<body>
+	<div ng-controller="customerCtrl">
+		<div role="complementary">
+			<div ng-if="!customer.codigo">
+				<div class="search-control">
+					<div class="button-search">
+						<div class="glyphicon glyphicon-search"></div>
+					</div>
+
+					<div class="input-search">
+						<input ng-model="search" type="text" />
+					</div>
+				</div>
+
+				<div class="customer" ng-repeat="c in customers | filter:search">
+					<div class="customer-info" ng-click="selectCustomer(c.codigo)">
+						<span>{{ c.email }}</span> </br>
+						<span style="font-weight: bold; color: black;">{{ c.nome }}</span> </br>
+						<span>{{ c.cpf }}</span>
+					</div>
+				</div>
+			</div>
+			
+			<div ng-if="customer.codigo" class="selected-customer">
+				<div class="photo">				
+					<div class="photo-with-arrow">
+						<span class="glyphicon glyphicon-arrow-left" id="back-to-search" ng-click="getCustomers()"></span>
+						<img class="img-circle" src="{{customer.thumb}}" />
+					</div>
+
+					<div class="photo-info">
+						<span style="font-weight: bold; color: black;">{{customer.nome}}</span> </br>
+						<span>CPF: {{customer.cpf}}, Cód: {{customer.codigo}}</span> </br>
+					</div>					
+				</div>	
+
+				<div class="obs-details">
+					<div>
+						<span style="font-weight: bold; color: black;">Observações importantes</span> </br>
+						<span>{{customer.obs}}</span> </br>
+					</div>
+				</div>						
+				<div class="details">
+					<div>
+						<span style="font-weight: bold; color: black;">E-mail</span> </br>
+						<span>{{customer.email}}</span> </br>
+					</div>
+				</div>	
+				<div class="details">
+					<div>
+						<span style="font-weight: bold; color: black;">Telefone</span> </br>
+						<span>+{{customer.telefone.pais}} {{customer.telefone.area}} {{customer.telefone.numero}}</span> </br>
+					</div>
+				</div>		
+				<div class="obs-details">
+					<div>
+						<span style="font-weight: bold; color: black;">Endereço</span> </br>
+						<span>{{customer.endereco.tipo}} {{customer.endereco.logradouro}}, {{customer.endereco.numero}} - {{customer.endereco.bairro}} - {{customer.endereco.cidade}} - {{customer.endereco.Estado}}</span> </br>
+					</div>
+				</div>						
+			</div>
+		</div> 
+		
+		<div role="main">
+			<div class="header">
+				<h4>Fidelidade</h4>
+			</div>
+
+			<div class="nav">
+				<uib-tabset type="pills">
+					<uib-tab heading="TRANSAÇÕES" ng-click="getTransactions(customer.codigo)" disable="disabled">							
+					</uib-tab>
+					<uib-tab heading="BENEFICIOS" ng-click="getBenefits(customer.codigo)" disable="disabled">
+					</uib-tab>
+					<uib-tab heading="HISTÓRICO" ng-click="getHistorical(customer.codigo)" disable="disabled">
+					</uib-tab>
+					<div class="view" ng-view></div>	
+				</uib-tabset>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/vendors.min.js"></script>
+	<script src="js/app.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<div class="points">
+	<div>
+		<label>Saldo</label><br />
+		<span ng-if="!points.saldo">- - -</span>
+		<span ng-if="points.saldo"> {{points.saldo | currency:""}} </span>
+	</div>
+
+	<div>
+		<label>Histórico</label><br />
+		<span ng-if="!points.total">- - -</span>
+		<span ng-if="points.total"> {{points.total | currency:""}} </span>
+	</div>
+
+	<div>
+		<label>Utilizados</label><br />
+		<span ng-if="!points.utilizados">- - -</span>
+		<span ng-if="points.utilizados"> {{points.utilizados | currency:""}} </span>
+	</div>
+
+	<div>
+		<label>Perdidos</label><br />
+		<span ng-if="!points.expirados">- - -</span>
+		<span ng-if="points.expirados"> {{points.expirados | currency:""}} </span>
+	</div>
+</div>
+
+<div class="invoices">
+	<div class="container-fluid">
+		<h4>Adicionar nota</h4>
+
+		<form name="invoiceForm" ng-submit="addInvoice(invoice)" novalidate>
+			<fieldset class="row"  ng-disabled="disabled">
+				<div class="form-group col-md-11">
+					<label for="store">Loja</label>
+					<input type="text" class="form-control" name="store" id="store" ng-model="invoice.store" required ng-class="{error: (invoiceForm.store.$invalid && invoiceForm.$submitted)}">
+				</div>
+			</fieldset>
+
+			<fieldset class="row"  ng-disabled="disabled">
+				<div class="form-group col-md-3">
+					<label for="number">Nr nota</label>
+					<input type="number" class="form-control" name="number" id="number" ng-model="invoice.number"  ng-pattern="/^[0-9]*$/" required ng-class="{error: (invoiceForm.number.$invalid && invoiceForm.$submitted)}" />
+				</div>
+				<div class="form-group col-md-2">
+					<label for="date">Data</label>
+					<input type="text" class="form-control" name="date" id="date" ng-model="invoice.date" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" required ng-class="{error: (invoiceForm.date.$invalid && invoiceForm.$submitted)}" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="paymentType">Forma de pagamento</label>
+					<select class="form-control" name="paymentType" id="paymentType" ng-options="payment as payment.label for payment in paymentTypes track by payment.id" ng-model="invoice.payment" required ng-class="{error: (invoiceForm.paymentType.$invalid && invoiceForm.$submitted)}"></select>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="value">Valor</label>
+					<input type="text" id="value" class="form-control" name="value" ng-model="invoice.value" ng-currency required ng-class="{error: (invoiceForm.value.$invalid && invoiceForm.$submitted)}" />
+				</div>
+			</fieldset>
+			<div class="row col-md-11">
+				<button type="submit" style="float:right" class="btn btn-info" ng-disabled="disabled">Adicionar</button>		
+				<button type="reset" style="float:right; margin-right: 10px" class="btn btn-secondary" ng-disabled="disabled" ng-click="resetInvoice()">Cancelar</button>		
+			</div>
+		</form>
+	</div>
+	
+	<div class="container-fluid list">
+		<h4>Cadastrar nota</h4>
+		<span>Você precisa confirmar o cadastro desta lista de notas.</span>
+		<br/><br/>
+		
+		<div class="row col-md-11">
+		  <table class="table table-striped">
+			<thead>
+			  <tr>
+				<th>Loja</th>
+				<th>Nr nota</th>
+				<th>Data</th>
+				<th>Cadastro</th>
+				<th>Valor</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="i in invoices">
+				<td>{{ i.store }}</td>
+				<td>{{ i.number }}</td>
+				<td>{{ i.date }}</td>
+				<td>{{ i.createDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+				<td>{{ i.value | currency }}</td>	
+			  </tr>
+			  
+			  <tr ng-if="invoices.length < 1">
+				<td>Nenhuma nota cadastrada ainda.</td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+		  
+		<div class="row col-md-11">
+			<button style="float:right" class="btn btn-info"  ng-disabled="disabled || invoices.length == 0" ng-click="saveInvoices(invoices)">Confirmar</button>		
+		</div>
+	</div>						
+</div>
